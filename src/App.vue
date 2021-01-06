@@ -1,24 +1,40 @@
 <template>
   <div class="h-screen flex flex-col">
-    <div class="w-full bg-blue-900 flex-1 flex">
-      <ColorBlock class="bg-red-300">color-1</ColorBlock>
-      <ColorBlock class="bg-blue-300">color-2</ColorBlock>
-      <ColorBlock class="bg-yellow-300">color-3</ColorBlock>
-      <ColorBlock class="bg-green-300">color-4</ColorBlock>
-      <ColorBlock class="bg-purple-300">color-5</ColorBlock>
+    <div class="w-full bg-gray-100 flex-1 flex flex-col">
+      <ColorBlock
+        class="bg-gray-100"
+        v-for="(color, i) in palette.randomColors"
+        :key="i"
+        :color="color"
+      />
     </div>
 
-    <div class="h-56 bg-white flex">
+    <div class="h-44 bg-white flex">
       <button class="flex-1">lib</button>
       <button class="flex-1">save</button>
-      <button class="flex-1">generate</button>
+      <button class="flex-1" @click="generateColor">generate</button>
       <button class="flex-1">export</button>
     </div>
   </div>
 </template>
 
 <script setup>
+import { reactive, onMounted } from 'vue';
 import ColorBlock from './components/ColorBlock.vue';
-</script>
+import chroma from 'chroma-js';
+// const palette = reactive({});
+const palette = reactive({
+  size: 4,
+  randomColors: []
+});
 
-<style></style>
+const generateColor = () => {
+  for (let i = 0; i < palette.size; i++) {
+    palette.randomColors[i] = chroma.random().hex();
+  }
+};
+
+onMounted(() => {
+  generateColor();
+});
+</script>
