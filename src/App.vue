@@ -22,7 +22,7 @@
 import { reactive, onMounted } from 'vue';
 import ColorBlock from './components/ColorBlock.vue';
 import chroma from 'chroma-js';
-// const palette = reactive({});
+
 const palette = reactive({
   size: 4,
   randomColors: []
@@ -30,7 +30,14 @@ const palette = reactive({
 
 const generateColor = () => {
   for (let i = 0; i < palette.size; i++) {
-    palette.randomColors[i] = chroma.random().hex();
+    if (palette.randomColors[i]?.isLock) {
+      continue;
+    }
+
+    palette.randomColors[i] = {
+      isLocked: false,
+      hex: chroma.random().hex().toUpperCase()
+    };
   }
 };
 

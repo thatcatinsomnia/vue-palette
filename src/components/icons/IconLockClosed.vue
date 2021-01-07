@@ -1,0 +1,35 @@
+<template>
+  <svg
+    width="width"
+    height="height"
+    stroke="none"
+    fill="currentColor"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    preserveAspectRatio="xMidYMid meet"
+    data-attributes-set=",xmlns:xlink,xmlns,viewBox,preserveAspectRatio"
+  >
+    <path
+      xmlns="http://www.w3.org/2000/svg"
+      fill-rule="evenodd"
+      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+      clip-rule="evenodd"
+    ></path>
+  </svg>
+</template>
+
+<script>
+import { defineProps } from 'vue';
+
+defineProps({
+  width: {
+    type: String,
+    default: 28
+  },
+  height: {
+    type: String,
+    default: 28
+  }
+});
+</script>
