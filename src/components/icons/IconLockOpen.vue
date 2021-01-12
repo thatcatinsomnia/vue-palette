@@ -1,8 +1,8 @@
 <template>
   <!-- Please refer: https://github.com/shubhamjain/svg-loader -->
   <svg
-    width="width"
-    height="height"
+    width="20"
+    height="20"
     stroke="none"
     fill="currentColor"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -17,18 +17,3 @@
     ></path>
   </svg>
 </template>
-
-<script>
-import { defineProps } from 'vue';
-
-defineProps({
-  width: {
-    type: String,
-    default: 28
-  },
-  height: {
-    type: String,
-    default: 28
-  }
-});
-</script>

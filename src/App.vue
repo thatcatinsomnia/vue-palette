@@ -6,20 +6,20 @@
         v-for="(color, i) in palette.randomColors"
         :key="i"
         :color="color"
+        @onCopyHex="onCopyHex"
       />
     </div>
 
-    <div class="h-44 bg-white flex">
+    <div class="h-44 bg-white flex select-none">
       <button class="flex-1">lib</button>
       <button class="flex-1">save</button>
       <button class="flex-1" @click="generateColor">generate</button>
-      <button class="flex-1">export</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, defineEmit } from 'vue';
 import ColorBlock from './components/ColorBlock.vue';
 import chroma from 'chroma-js';
 
@@ -41,6 +41,12 @@ const generateColor = () => {
   }
 };
 
+const onCopyHex = hex => {
+  navigator.clipboard.writeText(hex);
+  alert('copy success');
+};
+
+defineEmit(['copyHex']);
 onMounted(() => {
   generateColor();
 });
