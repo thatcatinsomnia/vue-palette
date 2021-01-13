@@ -1,31 +1,38 @@
 <template>
   <div class="h-screen flex flex-col">
-    <div class="w-full bg-gray-100 flex-1 flex flex-col">
+    <div class="w-full flex-1 flex flex-col">
       <ColorBlock
-        class="bg-gray-100"
         v-for="(color, i) in palette.randomColors"
         :key="i"
         :color="color"
-        @onCopyHex="onCopyHex"
-      />
+        @copyHex="copyHex"
+      ></ColorBlock>
     </div>
 
-    <div class="h-44 bg-white flex select-none">
+    <div class="h-24 bg-white flex select-none">
       <button class="flex-1">lib</button>
       <button class="flex-1">save</button>
       <button class="flex-1" @click="generateColor">generate</button>
     </div>
   </div>
+
+  <AppModal v-if="modal.isActive" @closeModal="closeModal"></AppModal>
 </template>
 
 <script setup>
-import { reactive, onMounted, defineEmit } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import ColorBlock from './components/ColorBlock.vue';
+import AppModal from './components/AppModal.vue';
 import chroma from 'chroma-js';
 
 const palette = reactive({
-  size: 4,
+  size: 5,
   randomColors: []
+});
+
+let modal = reactive({
+  timer: null,
+  isActive: false
 });
 
 const generateColor = () => {
@@ -41,12 +48,18 @@ const generateColor = () => {
   }
 };
 
-const onCopyHex = hex => {
+const copyHex = hex => {
   navigator.clipboard.writeText(hex);
-  alert('copy success');
+
+  modal.isActive = true;
+  modal.timer = setTimeout(closeModal, 3000);
 };
 
-defineEmit(['copyHex']);
+const closeModal = () => {
+  modal.isActive = false;
+  clearInterval(modal.timer);
+};
+
 onMounted(() => {
   generateColor();
 });

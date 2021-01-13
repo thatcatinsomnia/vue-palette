@@ -1,7 +1,7 @@
 ,
 <template>
   <div
-    class="flex-1 text-white text-2xl flex items-center justify-center relative"
+    class="flex-1 text-white text-xl flex items-center justify-center relative"
     :style="{ backgroundColor: color.hex }"
   >
     <h3 class="cursor-pointer select-none" @click="copyHex">
@@ -48,6 +48,6 @@ const lockIconStyle = {
 
 const copyHex = event => {
   const hex = event.target.textContent;
-  emit('onCopyHex', hex);
+  emit('copyHex', hex);
 };
 </script>
