@@ -10,40 +10,48 @@
     </div>
 
     <div class="h-24 bg-white flex select-none">
-      <button class="flex-1">lib</button>
+      <button class="flex-1" @click="showLibrary">lib</button>
       <button class="flex-1" @click="showSaveModal">save</button>
       <button class="flex-1" @click="generateColor">generate</button>
     </div>
   </div>
 
-  <ModalBox
+  <modal-wrapper
     v-if="modal.isActive"
     @closeModal="closeModal"
     @saveColor="saveColor"
   >
-    <ModalBodyText
-      :modalText="modal.text"
+    <modal-text
+      :modal-text="modal.text"
       v-if="modal.type === 'text'"
-    ></ModalBodyText>
+    ></modal-text>
 
-    <ModalBodySave
+    <modal-save
       :colors="palette.randomColors"
       @closeModal="closeModal"
       @saveColor="saveColor"
+      v-else-if="modal.type === 'save'"
+    ></modal-save>
+
+    <modal-library
+      :library="library"
+      @delete="deletePalette"
+      @load="loadPalette"
       v-else
-    ></ModalBodySave>
-  </ModalBox>
+    ></modal-library>
+  </modal-wrapper>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, onBeforeMount } from 'vue';
 import ColorBlock from './components/ColorBlock.vue';
-import ModalBox from './components/Modal/ModalBox.vue';
-import ModalBodyText from './components/Modal/ModalBodyText.vue';
-import ModalBodySave from './components/Modal/ModalBodySave.vue';
+import ModalWrapper from './components/Modal/ModalWrapper.vue';
+import ModalText from './components/Modal/ModalText.vue';
+import ModalSave from './components/Modal/ModalSave.vue';
+import ModalLibrary from './components/Modal/ModalLibrary.vue';
 import chroma from 'chroma-js';
 
-const savedLibrary = reactive([]);
+let library = reactive([]);
 
 const palette = reactive({
   size: 5,
@@ -93,19 +101,58 @@ const showSaveModal = () => {
 };
 
 const saveColor = paletteName => {
-  const savePalette = {
+  const newPalette = {
     name: paletteName,
     colors: palette.randomColors.map(color => color.hex)
   };
 
-  savedLibrary.push(savePalette);
+  library.push(newPalette);
 
-  localStorage.setItem('vue-palette', JSON.stringify(savedLibrary));
+  localStorage.setItem('vue-palette', JSON.stringify(library));
 
   modal.type = 'text';
   modal.text = `palette ${paletteName} saved success! 🎨`;
   modal.timer = setTimeout(closeModal, modal.closeInterval);
 };
+
+const showLibrary = () => {
+  modal.type = 'lib';
+  modal.isActive = true;
+};
+
+const loadLibrary = () => {
+  const palettes = localStorage.getItem('vue-palette');
+
+  if (!palettes) {
+    return;
+  }
+
+  for (let palette of JSON.parse(palettes)) {
+    library.push(palette);
+  }
+};
+
+const deletePalette = index => {
+  library.splice(index, 1);
+  localStorage.setItem('vue-palette', JSON.stringify(library));
+};
+
+const loadPalette = colors => {
+  palette.randomColors = [];
+
+  for (let i = colors.length - 1; i >= 0; i--) {
+    palette.randomColors.push({
+      isLocked: false,
+      hex: colors[i]
+    });
+  }
+
+  closeModal();
+};
+
+onBeforeMount(() => {
+  loadLibrary();
+});
 
 onMounted(() => {
   generateColor();

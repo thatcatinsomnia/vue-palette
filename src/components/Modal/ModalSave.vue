@@ -4,9 +4,10 @@
   >
     <div class="mb-3 w-full flex">
       <div
-        v-for="color in colors"
+        v-for="(color, i) in colors"
         class="h-12 w-12 flex-1"
         :style="{ backgroundColor: color.hex }"
+        :key="i"
       ></div>
     </div>
 
