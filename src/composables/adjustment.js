@@ -140,6 +140,8 @@ export function useAdjustmentProvider() {
     }
 
     adjustment.color.hex = chroma(hsl, 'hsl').hex();
+    adjustment.color.luminance = chroma(hsl, 'hsl').luminance();
+
     updateSliderPosition();
     updateSliderGradient();
   }

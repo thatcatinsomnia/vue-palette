@@ -17,10 +17,8 @@
 </template>
 
 <script setup>
-// import { reactive, defineProps, defineEmit } from 'vue';
 import { useColorsContext } from '@/composables/colors';
 import { useAdjustmentContext } from '@/composables/adjustment';
-import chroma from 'chroma-js';
 
 const props = defineProps({
   gradient: String,

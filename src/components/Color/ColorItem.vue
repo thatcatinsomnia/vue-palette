@@ -1,6 +1,7 @@
 <template>
   <div
-    class="flex-1 text-white text-xl flex items-center justify-center relative"
+    class="flex-1 text-xl flex items-center justify-center relative"
+    :class="textColorClass"
     :style="{ backgroundColor: color.hex }"
   >
     <h3 class="cursor-pointer select-none" @click="copyHex">
@@ -18,7 +19,7 @@
 </template>
 
 <script setup>
-import { defineProps, onBeforeUpdate, defineEmit } from 'vue';
+import { defineProps, onBeforeUpdate, computed } from 'vue';
 
 import LockButton from '@/components/UI/LockButton.vue';
 import IconAdjustment from '@/components/Icons/IconAdjustment.vue';
@@ -36,6 +37,10 @@ const {
 
 const props = defineProps({
   color: Object
+});
+
+const textColorClass = computed(() => {
+  return props.color.luminance > 0.5 ? 'text-gray-700' : 'text-white';
 });
 
 const adjustmentIconStyle = {

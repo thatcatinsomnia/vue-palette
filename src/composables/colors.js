@@ -28,6 +28,7 @@ export function useColorsProvider() {
         id: i,
         hsl: hsl,
         hex: hex,
+        luminance: chroma(hsl, 'hsl').luminance(),
         isLock: false
       };
     }
@@ -142,6 +143,7 @@ export function useColorsProvider() {
 
     state.colors[id].hsl = [hue, saturation, brightness];
     state.colors[id].hex = chroma(hsl, 'hsl').hex();
+    state.colors[id].luminance = color.luminance;
 
     if (DEBUG) {
       console.log(`update color: ${color.hex} with id: ${color.id}`);

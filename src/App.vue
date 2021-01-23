@@ -15,7 +15,6 @@ import ColorPalette from '@/components/Color/ColorPalette.vue';
 import CallToAction from './components/CallToAction.vue';
 import AdjustPanel from './components/AdjustPanel.vue';
 import Modal from '@/components/Modal/Modal.vue';
-import chroma from 'chroma-js';
 
 useColorsProvider();
 useModalProvider();
