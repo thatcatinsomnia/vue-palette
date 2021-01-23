@@ -33,13 +33,7 @@ const props = defineProps({
 
 const { updateColor } = useColorsContext();
 
-const {
-  adjustment,
-  updateSliderGradient,
-  updateColorWithSlider
-  // updateBrightnessGradient
-  // updateSaturationGradient,
-} = useAdjustmentContext();
+const { adjustment, updateColorWithSlider } = useAdjustmentContext();
 
 const update = event => {
   const type = props.type;

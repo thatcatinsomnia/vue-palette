@@ -22,6 +22,7 @@
           }"
           placeholder="input your color palette..."
           v-model="paletteName"
+          @keyup.enter="save"
         />
         <span
           class="absolute left-0 -top-7 text-pink-600"

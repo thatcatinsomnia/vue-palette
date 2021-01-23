@@ -19,17 +19,15 @@ export function useColorsProvider() {
         continue;
       }
 
-      const hex = chroma.random().hex();
-      const hsl = {
-        h: chroma(hex).get('hsl.h'),
-        s: chroma(hex).get('hsl.s'),
-        l: chroma(hex).get('hsl.l')
-      };
+      // generate hsl first
+      // transfer to hex by hsl
+      const hsl = chroma.random().hsl();
+      const hex = chroma(hsl, 'hsl').hex();
 
       state.colors[i] = {
         id: i,
-        hex: hex,
         hsl: hsl,
+        hex: hex,
         isLock: false
       };
     }
@@ -108,17 +106,13 @@ export function useColorsProvider() {
     const palette = state.library.find(palette => palette.id === id);
 
     palette.colors.map((color, i) => {
-      const hsl = [color.hsl.h, color.hsl.s, color.hsl.l];
-
+      const hsl = [...color.hsl];
+      console.log(hsl);
       state.colors[i] = {
         id: i,
         isLock: false,
         hex: chroma(hsl, 'hsl').hex(),
-        hsl: {
-          h: color.hsl.h,
-          s: color.hsl.s,
-          l: color.hsl.l
-        }
+        hsl: hsl
       };
     });
 
@@ -144,14 +138,10 @@ export function useColorsProvider() {
   // to prevent lost color problem
   function updateColor(color) {
     const { id, hsl } = color;
+    const [hue, saturation, brightness] = hsl;
 
-    state.colors[id].hsl = {
-      h: hsl.h,
-      s: hsl.s,
-      l: hsl.l
-    };
-
-    state.colors[id].hex = chroma([hsl.h, hsl.s, hsl.l], 'hsl').hex();
+    state.colors[id].hsl = [hue, saturation, brightness];
+    state.colors[id].hex = chroma(hsl, 'hsl').hex();
 
     if (DEBUG) {
       console.log(`update color: ${color.hex} with id: ${color.id}`);

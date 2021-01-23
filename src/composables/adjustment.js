@@ -35,14 +35,12 @@ export function useAdjustmentProvider() {
   function initialAdjustmentColor(color) {
     if (DEBUG) console.log(`init color adjust color: ${color.hex}`);
 
+    const [hue, saturation, brightness] = color.hsl;
+
     adjustment.color = {
       id: color.id,
       hex: color.hex,
-      hsl: {
-        h: color.hsl.h,
-        s: color.hsl.s,
-        l: color.hsl.l
-      }
+      hsl: [hue, saturation, brightness]
     };
   }
 
@@ -68,7 +66,9 @@ export function useAdjustmentProvider() {
   }
 
   function updateSliderGradient(type) {
-    if (DEBUG) console.log(`update gradient`);
+    if (DEBUG) {
+      console.log(`update gradient`);
+    }
 
     updateSaturationGradient();
     updateBrightnessGradient();
@@ -114,12 +114,12 @@ export function useAdjustmentProvider() {
   }
 
   function updateSliderPosition() {
-    const hsl = adjustment.color.hsl;
+    const [hue, saturation, brightness] = adjustment.color.hsl;
     const slider = adjustment.slider;
 
-    slider.hue = Math.floor(hsl.h);
-    slider.saturation = Math.floor(hsl.s * 100) / 100;
-    slider.brightness = Math.floor(hsl.l * 100) / 100;
+    slider.hue = Math.floor(hue);
+    slider.saturation = Math.floor(saturation * 100) / 100;
+    slider.brightness = Math.floor(brightness * 100) / 100;
 
     if (DEBUG) {
       console.log(
@@ -129,18 +129,17 @@ export function useAdjustmentProvider() {
   }
 
   function updateColorWithSlider(type, value) {
-    const currentColor = adjustment.color;
     let hsl = adjustment.color.hsl;
 
     if (type === 'hue') {
-      hsl.h = value;
+      hsl[0] = value;
     } else if (type === 'saturation') {
-      hsl.s = value;
+      hsl[1] = value;
     } else {
-      hsl.l = value;
+      hsl[2] = value;
     }
 
-    currentColor.hex = chroma(hsl, 'hsl').hex();
+    adjustment.color.hex = chroma(hsl, 'hsl').hex();
     updateSliderPosition();
     updateSliderGradient();
   }
