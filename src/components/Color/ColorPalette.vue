@@ -13,7 +13,7 @@ import { onMounted } from 'vue';
 import { useColorsContext } from '@/composables/colors';
 import ColorItem from '@/components/Color/ColorItem.vue';
 
-const { library, colors, generateColors } = useColorsContext();
+const { colors, generateColors } = useColorsContext();
 
 onMounted(() => {
   generateColors();

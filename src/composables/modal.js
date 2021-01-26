@@ -11,7 +11,7 @@ export function useModalProvider() {
     text: 'DEFAULT MODAL TEXT 🎉',
     input: '',
     timer: null,
-    closeInterval: 3000,
+    closeInterval: 1500,
     isShow: false
   });
 

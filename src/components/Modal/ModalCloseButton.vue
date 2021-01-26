@@ -7,7 +7,7 @@
 <script setup>
 import { useModalContext } from '@/composables/modal';
 
-const { closeModal, setModalType, resetError } = useModalContext();
+const { closeModal, resetError } = useModalContext();
 
 const close = () => {
   closeModal();

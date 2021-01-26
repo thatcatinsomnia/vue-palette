@@ -35,7 +35,7 @@ const {
   cacheAdjustmentColorById
 } = useColorsContext();
 
-const { openModal, setModalType } = useModalContext();
+const { openModal } = useModalContext();
 
 const showLibraryModal = () => {
   loadLibrary();

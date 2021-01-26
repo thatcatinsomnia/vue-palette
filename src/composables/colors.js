@@ -108,7 +108,7 @@ export function useColorsProvider() {
 
     palette.colors.map((color, i) => {
       const hsl = [...color.hsl];
-      console.log(hsl);
+
       state.colors[i] = {
         id: i,
         isLock: false,
@@ -119,8 +119,8 @@ export function useColorsProvider() {
 
     if (DEBUG) {
       console.log(
-        `load palette ${palette.name} with: ${palette.colors.map(
-          color => color
+        `load ${palette.name} with colors: ${palette.colors.map(
+          color => color.hex
         )}
         `
       );
