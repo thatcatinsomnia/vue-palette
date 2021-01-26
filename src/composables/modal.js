@@ -1,7 +1,7 @@
 import { toRefs, reactive, provide, inject } from 'vue';
 
 const MODAL_CONTEXT = Symbol();
-const DEBUG = true;
+const DEBUG = process.env.NODE_ENV === 'development' ? true : false;
 
 console.log('modal debug mode is on...');
 

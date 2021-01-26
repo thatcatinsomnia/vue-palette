@@ -2,7 +2,7 @@ import { toRefs, reactive, inject, provide } from 'vue';
 import chroma from 'chroma-js';
 
 const COLOR_CONTEXT = Symbol();
-const DEBUG = true;
+const DEBUG = process.env.NODE_ENV === 'development' ? true : false;
 
 if (DEBUG) console.log('debug mode is on...');
 

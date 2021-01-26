@@ -2,7 +2,7 @@ import { reactive, provide, inject } from 'vue';
 import chroma from 'chroma-js';
 
 const ADJUSTMENT_CONTEXT = Symbol();
-const DEBUG = true;
+const DEBUG = process.env.NODE_ENV === 'development' ? true : false;
 
 export function useAdjustmentProvider() {
   const adjustment = reactive({
