@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-full absolute left-0 top-0 z-10 bg-opacity-80 bg-black"
+    class="w-full h-full absolute left-0 top-0 z-30 bg-opacity-80 bg-black"
     @click.self="closeModal"
   ></div>
 </template>
