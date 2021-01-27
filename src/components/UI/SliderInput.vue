@@ -1,16 +1,15 @@
 <template>
   <div class="px-8 w-full">
-    <span class="text-white"><slot>SLIDER NAME</slot></span>
+    <span class="text-white">{{ slider.title }}</span>
     <input
       type="range"
-      :min="min"
-      :max="max"
-      :step="step"
-      :type="type"
+      :min="slider.min"
+      :max="slider.max"
+      :step="slider.step"
       class="w-full appearance-none rounded-full"
       :class="{ 'slider-input': true }"
-      :style="{ background: gradient }"
-      :value="value"
+      :style="{ background: slider.gradient }"
+      :value="slider.value"
       @input="update"
     />
   </div>
@@ -22,11 +21,7 @@ import { useAdjustmentContext } from '@/composables/adjustment';
 
 const props = defineProps({
   gradient: String,
-  min: String,
-  max: String,
-  step: String,
-  type: String,
-  value: Number
+  slider: Object
 });
 
 const { updateColor } = useColorsContext();
@@ -34,7 +29,7 @@ const { updateColor } = useColorsContext();
 const { adjustment, updateColorWithSlider } = useAdjustmentContext();
 
 const update = event => {
-  const type = props.type;
+  const type = props.slider.type;
   const value = event.target.value;
 
   updateColorWithSlider(type, Number(value));

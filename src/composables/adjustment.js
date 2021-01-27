@@ -8,16 +8,35 @@ export function useAdjustmentProvider() {
   const adjustment = reactive({
     isShow: false,
     color: {},
-    slider: {
-      hue: 0,
-      brightness: 0,
-      saturation: 0
-    },
-    gradient: {
-      hue:
-        'linear-gradient(to right, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FF0000)',
-      brightness: '',
-      saturation: ''
+    sliders: {
+      hue: {
+        title: 'Hue',
+        type: 'hue',
+        min: 0,
+        max: 360,
+        step: 1,
+        value: 0,
+        gradient:
+          'linear-gradient(to right, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FF0000)'
+      },
+      saturation: {
+        title: 'Saturation',
+        type: 'saturation',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        value: 0,
+        gradient: ''
+      },
+      brightness: {
+        title: 'Brightness',
+        type: 'brightness',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        value: 0,
+        gradient: ''
+      }
     },
     brightness: {
       start: '#000',
@@ -42,6 +61,8 @@ export function useAdjustmentProvider() {
       hex: color.hex,
       hsl: [hue, saturation, brightness]
     };
+
+    updateSliderGradient();
   }
 
   function openAdjustmentPanel() {
@@ -65,7 +86,7 @@ export function useAdjustmentProvider() {
     return `linear-gradient(to right, ${colors.join(', ')})`;
   }
 
-  function updateSliderGradient(type) {
+  function updateSliderGradient() {
     if (DEBUG) {
       console.log(`update gradient`);
     }
@@ -76,7 +97,7 @@ export function useAdjustmentProvider() {
 
   function updateSaturationGradient() {
     const saturation = adjustment.saturation;
-    const gradient = adjustment.gradient;
+    const sliders = adjustment.sliders;
 
     saturation.zero = chroma(adjustment.color.hex).set('hsl.s', 0);
     saturation.full = chroma(adjustment.color.hex).set('hsl.s', 1);
@@ -87,7 +108,7 @@ export function useAdjustmentProvider() {
       saturation.full
     ]);
 
-    gradient.saturation = getGradientStyle([
+    sliders.saturation.gradient = getGradientStyle([
       saturation.scale(0),
       saturation.scale(1)
     ]);
@@ -96,7 +117,7 @@ export function useAdjustmentProvider() {
   // brightness start & end is always same value
   function updateBrightnessGradient() {
     const brightness = adjustment.brightness;
-    const gradient = adjustment.gradient;
+    const sliders = adjustment.sliders;
 
     brightness.mid = chroma(adjustment.color.hex).set('hsl.l', 0.5);
 
@@ -106,7 +127,7 @@ export function useAdjustmentProvider() {
       brightness.end
     ]);
 
-    gradient.brightness = getGradientStyle([
+    sliders.brightness.gradient = getGradientStyle([
       brightness.scale(0),
       brightness.scale(0.5),
       brightness.scale(1)
@@ -115,16 +136,14 @@ export function useAdjustmentProvider() {
 
   function updateSliderPosition() {
     const [hue, saturation, brightness] = adjustment.color.hsl;
-    const slider = adjustment.slider;
+    const sliders = adjustment.sliders;
 
-    slider.hue = Math.floor(hue);
-    slider.saturation = Math.floor(saturation * 100) / 100;
-    slider.brightness = Math.floor(brightness * 100) / 100;
+    sliders.hue.value = Math.floor(hue);
+    sliders.saturation.value = Math.floor(saturation * 100) / 100;
+    sliders.brightness.value = Math.floor(brightness * 100) / 100;
 
     if (DEBUG) {
-      console.log(
-        `update slider position hue: ${slider.hue}, saturation: ${slider.saturation}, brightness: ${slider.brightness}`
-      );
+      console.log(`update slider position`);
     }
   }
 
