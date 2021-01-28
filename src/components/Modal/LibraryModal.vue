@@ -40,7 +40,7 @@ const { library } = useColorsContext();
 }
 .palette-enter-from,
 .palette-leave-to {
-  transform: translateY(100px) rotate(20deg);
+  transform: translateY(300px) rotate(20deg);
   opacity: 0;
 }
 
