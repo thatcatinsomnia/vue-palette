@@ -1,6 +1,6 @@
 <template>
   <ModalWrapper>
-    <div class="px-4 py-24 text-lg text-center">{{ text }}</div>
+    <div class="px-4 py-24 md:py-32 text-lg text-center">{{ text }}</div>
   </ModalWrapper>
 </template>
 

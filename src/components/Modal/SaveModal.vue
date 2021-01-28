@@ -6,7 +6,7 @@
       <div class="mb-10 w-full flex">
         <div
           v-for="color in colors"
-          class="h-12 w-12 flex-1"
+          class="h-12 w-12 flex-1 sm:h-20"
           :style="{ backgroundColor: color.hex }"
           :key="color.id"
         ></div>
@@ -36,13 +36,13 @@
 
       <div class="mt-5 w-full flex">
         <button
-          class="px-4 py-1 flex-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors duration-300 ease-in-out"
+          class="px-4 py-1 sm:py-2 flex-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors duration-300 ease-in-out"
           @click="save"
         >
           Save
         </button>
         <button
-          class="ml-3 px-4 py-1 flex-1 text-white bg-gray-500 hover:bg-gray-600 rounded transition-colors duration-500 ease-in-out"
+          class="ml-3 px-4 py-1 sm:py-2 flex-1 text-white bg-gray-500 hover:bg-gray-600 rounded transition-colors duration-500 ease-in-out"
           @click="close"
         >
           Cancel

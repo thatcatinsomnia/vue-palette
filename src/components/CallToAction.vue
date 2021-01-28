@@ -1,5 +1,5 @@
 <template>
-  <div class="h-24 bg-white select-none flex">
+  <div class="h-24 md:h-32 bg-white select-none flex items-center">
     <ActionButton @click="showLibraryModal">
       <template v-slot:icon>
         <IconLibrary />

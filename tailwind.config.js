@@ -4,13 +4,15 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
-    colors: {
-      black: colors.black,
-      gray: colors.coolGray,
-      white: colors.white,
-      indigo: colors.indigo,
-      pink: colors.pink
+    extend: {
+      inset: {
+        '1/5': '20%',
+        '1/6': '16.666667%',
+        '1/8': '12.5%'
+      },
+      colors: {
+        gray: colors.blueGray
+      }
     }
   },
   variants: {

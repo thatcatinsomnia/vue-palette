@@ -1,17 +1,7 @@
 <template>
-  <IconLockClosed
-    class="cursor-pointer"
-    :style="lockStyle"
-    @click="unlock"
-    v-if="isLock"
-  >
+  <IconLockClosed class="cursor-pointer" @click="unlock" v-if="isLock">
   </IconLockClosed>
-  <IconLockOpen
-    class="cursor-pointer"
-    :style="lockStyle"
-    @click="lock"
-    v-else
-  ></IconLockOpen>
+  <IconLockOpen class="cursor-pointer" @click="lock" v-else></IconLockOpen>
 </template>
 
 <script setup>
@@ -24,13 +14,6 @@ const props = defineProps({
   id: Number,
   isLock: Boolean
 });
-
-const lockStyle = {
-  position: 'absolute',
-  right: '10%',
-  top: '50%',
-  transform: 'translateY(-50%)'
-};
 
 const { lockColor, unlockColor } = useColorsContext();
 

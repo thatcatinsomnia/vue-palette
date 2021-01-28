@@ -9,7 +9,7 @@
 
   <transition name="fade">
     <div
-      class="w-40 h-40 text-center fixed top-0 left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/2 z-20"
+      class="mx-auto w-40 h-40 sm:w-52 sm:h-52 lg:h-72 lg:w-72 text-center fixed top-0 left-0 right-0 top-1/3 transform -translate-y-1/2 z-20"
       v-if="adjustment.isShow"
     >
       <div
@@ -17,15 +17,15 @@
         :style="{ background: adjustment.color.hex }"
         @click.self="copy"
       ></div>
-      <span class="py-3 text-white block cursor-pointer" @click.self="copy"
-        >{{ adjustment.color.hex.toUpperCase() }}
+      <span class="py-3 text-white block cursor-pointer" @click.self="copy">
+        {{ adjustment.color.hex.toUpperCase() }}
       </span>
     </div>
   </transition>
 
   <transition name="slide">
     <div
-      class="fixed bottom-0 left-0 h-48 w-full bg-gray-800 flex flex-col items-center justify-center space-y-2 z-20"
+      class="fixed bottom-0 left-0 right-0 h-56 w-full bg-gray-800 rounded flex flex-col items-center justify-center space-y-2 z-20 md:max-w-2xl md:mx-auto"
       v-if="adjustment.isShow"
     >
       <div

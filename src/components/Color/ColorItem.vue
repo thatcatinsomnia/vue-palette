@@ -8,13 +8,16 @@
       {{ color.hex.toUpperCase() }}
     </h3>
 
-    <LockButton :id="color.id" :isLock="color.isLock"></LockButton>
+    <div
+      class="flex items-center absolute right-1/8 lg:flex-col lg:right-auto lg:bottom-1/5"
+    >
+      <IconAdjustment
+        class="cursor-pointer mr-4 lg:mr-0 lg:mb-12"
+        @click="adjust(color)"
+      ></IconAdjustment>
 
-    <IconAdjustment
-      :style="adjustmentIconStyle"
-      class="cursor-pointer"
-      @click="adjust(color)"
-    ></IconAdjustment>
+      <LockButton :id="color.id" :isLock="color.isLock"></LockButton>
+    </div>
   </div>
 </template>
 

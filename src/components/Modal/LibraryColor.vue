@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <div
-      class="px-3 py-5 flex-1"
+      class="px-3 py-5 flex-1 sm:h-20 sm:w-20"
       v-for="color in colors"
       :style="{ backgroundColor: color.hex }"
     ></div>

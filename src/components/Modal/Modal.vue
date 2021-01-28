@@ -44,7 +44,7 @@ because the modal has translate(-50%, -50%) at initial state
 */
 .slide-enter-from,
 .slide-leave-to {
-  transform: translate(-50%, calc(-50% - 70px));
+  transform: translateY(calc(-50% - 70px));
   opacity: 0;
 }
 </style>
